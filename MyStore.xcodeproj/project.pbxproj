@@ -108,13 +108,6 @@
 			path = storeCell;
 			sourceTree = "<group>";
 		};
-		BF54E9711FDDCF1E0073DF7A /* bottomContainer */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = bottomContainer;
-			sourceTree = "<group>";
-		};
 		BF54E9761FDDCF8E0073DF7A /* utils */ = {
 			isa = PBXGroup;
 			children = (
@@ -145,7 +138,6 @@
 			isa = PBXGroup;
 			children = (
 				BF54E9761FDDCF8E0073DF7A /* utils */,
-				BF54E9711FDDCF1E0073DF7A /* bottomContainer */,
 				BF54E95F1FDD94800073DF7A /* storelist */,
 				BF54E95C1FDC888C0073DF7A /* persistence */,
 				BF54E9591FDC84660073DF7A /* model */,

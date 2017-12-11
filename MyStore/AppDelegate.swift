@@ -22,9 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         CoreDataManager.context = self.context
         
         
-        let mainViewController = MainViewController()
-        mainViewController.context = self.context
-        
+        let mainViewController = AppMainViewController()
         
         let window = UIWindow(frame: UIScreen.main.bounds)
         window.rootViewController =  PortraitNavigationController(rootViewController:  mainViewController)

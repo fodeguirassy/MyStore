@@ -7,5 +7,26 @@
 //
 
 import Foundation
+import UIKit
 
+extension UIViewController {
+    
+    func addChildViewController(_ childViewController: UIViewController, in subview: UIView){
+        guard let view = childViewController.view else {
+            return
+        }
+        
+        view.frame = subview.bounds
+        view.autoresizingMask = UIViewAutoresizing(rawValue: 0b111111)
+        
+        subview.addSubview(view)
+        self.addChildViewController(childViewController)
+    }
+    
+    func removeChildViewController(_ childController: UIViewController){
+        childController.removeFromParentViewController()
+        childController.view.removeFromSuperview()
+    }
+    
+}
 

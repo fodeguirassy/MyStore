@@ -19,18 +19,29 @@ class AppMainViewController: UIViewController {
     
     @IBOutlet weak var sumitStoreButton: UIButton!
     
-    
-    @IBOutlet weak var touchSwitchButton: UIButton!
-    
-    
     @IBOutlet weak var childContentview: UIView!
     
     
+    @IBAction func touchSwitchSubviews(_ sender: Any) {
+        
+        
     
+    }
+    
+    
+    lazy var storeListViewController : StoreListViewController = {
+       return StoreListViewController()
+    }()
+    
+    lazy var mapViewController : MapViewController = {
+        return MapViewController()
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        self.addChildViewController(self.mapViewController, in: childContentview)
+        
     }
     
 

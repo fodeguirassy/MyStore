@@ -27,11 +27,13 @@ class MapViewController: UIViewController {
             self.locationManager = manager
         }
         
+        self.locationManager.startUpdatingLocation()
         
-        let radius : CLLocationDistance = 200
-        let region = MKCoordinateRegionMakeWithDistance((self.locationManager.location?.coordinate)!, radius *  2.0, radius * 2.0)
         
-        self.mapView.setRegion(region, animated: true)
+        //let radius : CLLocationDistance = 200
+        //let region = MKCoordinateRegionMakeWithDistance((self.locationManager.location?.coordinate)!, radius *  2.0, radius * 2.0)
+        
+        //self.mapView.setRegion(region, animated: true)
         
     }
 
