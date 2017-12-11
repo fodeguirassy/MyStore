@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" restorationIdentifier="store" selectionStyle="default" indentationWidth="10" rowHeight="128" id="KGk-i7-Jjw" customClass="StoreCell" customModule="MyStore" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="338" height="128"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="338" height="127.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H2V-36-UCB">
+                        <rect key="frame" x="26" y="16" width="286" height="21"/>
+                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nex-PI-3Sw">
+                        <rect key="frame" x="26" y="57" width="286" height="21"/>
+                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="maps_pin.png" translatesAutoresizingMaskIntoConstraints="NO" id="AQF-Ae-rVZ">
+                        <rect key="frame" x="26" y="92" width="30" height="27"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="27" id="jX8-5J-H8x"/>
+                            <constraint firstAttribute="width" constant="30" id="kRr-Pz-zKl"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IqU-TL-qRz">
+                        <rect key="frame" x="73" y="98" width="239" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="21" id="f3w-Jh-dQg"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailingMargin" secondItem="H2V-36-UCB" secondAttribute="trailing" constant="10" id="2PO-AL-Lej"/>
+                    <constraint firstItem="nex-PI-3Sw" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="10" id="3qb-BE-zUM"/>
+                    <constraint firstItem="H2V-36-UCB" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="10" id="4RT-TU-CfJ"/>
+                    <constraint firstItem="H2V-36-UCB" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="5" id="BeK-H5-dO6"/>
+                    <constraint firstItem="AQF-Ae-rVZ" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="10" id="Fsu-Yl-hnV"/>
+                    <constraint firstItem="nex-PI-3Sw" firstAttribute="top" secondItem="H2V-36-UCB" secondAttribute="bottom" constant="20" id="RDx-WJ-ikz"/>
+                    <constraint firstItem="IqU-TL-qRz" firstAttribute="leading" secondItem="AQF-Ae-rVZ" secondAttribute="trailing" constant="17" id="aOu-qb-3ci"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="nex-PI-3Sw" secondAttribute="trailing" constant="10" id="dN8-RP-gfn"/>
+                    <constraint firstItem="AQF-Ae-rVZ" firstAttribute="bottom" secondItem="IqU-TL-qRz" secondAttribute="bottom" id="lX1-HU-2XU"/>
+                    <constraint firstItem="IqU-TL-qRz" firstAttribute="top" secondItem="nex-PI-3Sw" secondAttribute="bottom" constant="20" id="pJY-Fm-tMl"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="IqU-TL-qRz" secondAttribute="trailing" constant="10" id="pnf-Qa-j5i"/>
+                    <constraint firstAttribute="bottom" secondItem="AQF-Ae-rVZ" secondAttribute="bottom" constant="8.5" id="yue-Pc-9IS"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="StoreDescriptionLabel" destination="nex-PI-3Sw" id="NZt-LK-Kql"/>
+                <outlet property="storeAddressLabel" destination="IqU-TL-qRz" id="RJO-kP-mBO"/>
+                <outlet property="storeNameLabel" destination="H2V-36-UCB" id="o8b-9g-ayg"/>
+            </connections>
+            <point key="canvasLocation" x="17" y="-112"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="maps_pin.png" width="225" height="225"/>
+    </resources>
+</document>
