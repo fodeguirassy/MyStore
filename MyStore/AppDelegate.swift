@@ -1,4 +1,4 @@
-//
+3//
 //  AppDelegate.swift
 //  MyStore
 //
@@ -6,8 +6,14 @@
 //  Copyright © 2017 Fodé Guirassy. All rights reserved.
 //
 
+//ID: mystore-188809
+//Numero: 530635369380
+//key : AIzaSyDD-D6xSFadP-NQ76AVkZMoMo6hfCUygGo
+
 import UIKit
 import CoreData
+import GooglePlaces
+
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -16,9 +22,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var context:  NSManagedObjectContext?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-
+        
         self.context = self.loadCoreDataContext()
         CoreDataManager.context = self.context
+        
+        
+        GMSPlacesClient.provideAPIKey("AIzaSyDD-D6xSFadP-NQ76AVkZMoMo6hfCUygGo")
         
         let mainViewController = AppMainViewController()
         

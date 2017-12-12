@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import GooglePlaces
 
 class AppMainViewController: UIViewController, EditStoreDelegate {
    
@@ -20,7 +21,13 @@ class AppMainViewController: UIViewController, EditStoreDelegate {
     
     @IBOutlet weak var childContentview: UIView!
     
-    //https://www.youtube.com/watch?v=gRQUoHleCGM
+    lazy var gmsAutocompleteViewController: GMSAutocompleteViewController = {
+        let gmsAutocompleteViewController = GMSAutocompleteViewController()
+        gmsAutocompleteViewController.delegate = self
+        return gmsAutocompleteViewController
+    }()
+    
+    
 
     lazy var storeListViewController : StoreListViewController = {
         let storeListViewController = StoreListViewController()
@@ -52,6 +59,9 @@ class AppMainViewController: UIViewController, EditStoreDelegate {
         self.storeAddressTextField.placeholder = self.localizeString("appstore.form.address")
         
         self.sumitStoreButton.setTitle(self.localizeString("appstore.form.button"), for: UIControlState.normal)
+        
+        self.storeAddressTextField.addTarget(self, action: #selector(searchForAddress), for: .allEditingEvents)
+    
     }
     
     func onEditStoreClick(_ storesListViewController: StoreListViewController, didselectStore store: [String : Any]) {
@@ -59,10 +69,16 @@ class AppMainViewController: UIViewController, EditStoreDelegate {
         print("\(store["name"] ?? "")")
         
         self.storeNameTextField.text = "\(store["name"] ?? "")"
-        
+        self.storeDescTextField.text = "\(store["description"] ?? "")"
+        self.storeAddressTextField.text = "\(store["address"] ?? "")"
+
     }
     
-    
+    @objc func searchForAddress() {
+        
+       // self.present(gmsAutocompleteViewController, animated: true, completion: nil)
+        self.navigationController?.present(gmsAutocompleteViewController, animated: true, completion: nil)
+    }
     
     @IBAction func touchSubmitStore(_ sender: Any) {
         
@@ -88,3 +104,32 @@ class AppMainViewController: UIViewController, EditStoreDelegate {
     }
     
 }
+
+extension AppMainViewController: GMSAutocompleteViewControllerDelegate {
+    
+    func viewController(_ viewController: GMSAutocompleteViewController, didAutocompleteWith place: GMSPlace) {
+        print("place name\(place.formattedAddress ?? "")")
+        print("place attributions \(String(describing: place.attributions))")
+        dismiss(animated: true, completion: nil)
+    }
+    
+    func viewController(_ viewController: GMSAutocompleteViewController, didFailAutocompleteWithError error: Error) {
+        print("Error \(error.localizedDescription)")
+    }
+    
+    func wasCancelled(_ viewController: GMSAutocompleteViewController) {
+        print("Cancelled")
+    }
+
+    
+}
+
+
+
+
+
+
+
+
+
+

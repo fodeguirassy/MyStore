@@ -99,7 +99,7 @@ UITableViewDataSource {
             
             print("Edit Button pressed at \t \(self.stores[indexPath.row]["name"] ?? " ")")
             
-            self.editStoreDelegate?.onEditStoreClick(self, didselectStore: self.stores[indexPath.row] as! [String : Any])
+            self.editStoreDelegate?.onEditStoreClick(self, didselectStore: self.stores[indexPath.row])
             
         }
         
