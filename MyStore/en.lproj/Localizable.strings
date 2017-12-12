@@ -1,0 +1,14 @@
+/* 
+  Localizable.strings
+  MyStore
+
+  Created by School on 11/12/2017.
+  Copyright © 2017 Fodé Guirassy. All rights reserved.
+*/
+
+"appstore.form.name"="Name";
+"appstore.form.description"="Description";
+"appstore.form.address"="Adress";
+"appstore.form.button"="Submit";
+"appstore.row.action.delete"="Delete";
+"appstore.row.action.edit"="Edit";

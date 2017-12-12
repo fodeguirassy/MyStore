@@ -18,6 +18,8 @@
 		BF54E9781FDDCFCF0073DF7A /* SwitchChildViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF54E9771FDDCFCF0073DF7A /* SwitchChildViews.swift */; };
 		BF54E97B1FDE7FE20073DF7A /* AppMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF54E9791FDE7FE20073DF7A /* AppMainViewController.swift */; };
 		BF54E97C1FDE7FE20073DF7A /* AppMainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BF54E97A1FDE7FE20073DF7A /* AppMainViewController.xib */; };
+		BF87154A1FDF1346004A1ECA /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = BF87154C1FDF1346004A1ECA /* Localizable.strings */; };
+		BF8715501FDF2959004A1ECA /* EditStoreDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF87154F1FDF2959004A1ECA /* EditStoreDelegate.swift */; };
 		BFCE65E91FDC768900F0EF5A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFCE65E81FDC768900F0EF5A /* AppDelegate.swift */; };
 		BFCE65F11FDC768900F0EF5A /* MyStore.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = BFCE65EF1FDC768900F0EF5A /* MyStore.xcdatamodeld */; };
 		BFCE65F31FDC768900F0EF5A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BFCE65F21FDC768900F0EF5A /* Assets.xcassets */; };
@@ -45,6 +47,10 @@
 		BF54E9771FDDCFCF0073DF7A /* SwitchChildViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchChildViews.swift; sourceTree = "<group>"; };
 		BF54E9791FDE7FE20073DF7A /* AppMainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppMainViewController.swift; sourceTree = "<group>"; };
 		BF54E97A1FDE7FE20073DF7A /* AppMainViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AppMainViewController.xib; sourceTree = "<group>"; };
+		BF87153E1FDF0BEC004A1ECA /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		BF87154B1FDF1346004A1ECA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		BF87154D1FDF1348004A1ECA /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
+		BF87154F1FDF2959004A1ECA /* EditStoreDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditStoreDelegate.swift; sourceTree = "<group>"; };
 		BFCE65E51FDC768900F0EF5A /* MyStore.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyStore.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BFCE65E81FDC768900F0EF5A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BFCE65F01FDC768900F0EF5A /* MyStore.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MyStore.xcdatamodel; sourceTree = "<group>"; };
@@ -117,6 +123,14 @@
 			path = utils;
 			sourceTree = "<group>";
 		};
+		BF87154E1FDF2903004A1ECA /* protocol */ = {
+			isa = PBXGroup;
+			children = (
+				BF87154F1FDF2959004A1ECA /* EditStoreDelegate.swift */,
+			);
+			path = protocol;
+			sourceTree = "<group>";
+		};
 		BFCE65DC1FDC768900F0EF5A = {
 			isa = PBXGroup;
 			children = (
@@ -137,6 +151,7 @@
 		BFCE65E71FDC768900F0EF5A /* MyStore */ = {
 			isa = PBXGroup;
 			children = (
+				BF87154E1FDF2903004A1ECA /* protocol */,
 				BF54E9761FDDCF8E0073DF7A /* utils */,
 				BF54E95F1FDD94800073DF7A /* storelist */,
 				BF54E95C1FDC888C0073DF7A /* persistence */,
@@ -150,6 +165,7 @@
 				BFCE65F41FDC768900F0EF5A /* LaunchScreen.storyboard */,
 				BFCE65F71FDC768A00F0EF5A /* Info.plist */,
 				BFCE65EF1FDC768900F0EF5A /* MyStore.xcdatamodeld */,
+				BF87154C1FDF1346004A1ECA /* Localizable.strings */,
 			);
 			path = MyStore;
 			sourceTree = "<group>";
@@ -236,6 +252,7 @@
 			knownRegions = (
 				en,
 				Base,
+				fr,
 			);
 			mainGroup = BFCE65DC1FDC768900F0EF5A;
 			productRefGroup = BFCE65E61FDC768900F0EF5A /* Products */;
@@ -254,6 +271,7 @@
 			files = (
 				BFCE65F61FDC768900F0EF5A /* LaunchScreen.storyboard in Resources */,
 				BF54E97C1FDE7FE20073DF7A /* AppMainViewController.xib in Resources */,
+				BF87154A1FDF1346004A1ECA /* Localizable.strings in Resources */,
 				BFCE661D1FDC7E9600F0EF5A /* TabbedCell.xib in Resources */,
 				BF54E96E1FDDB30F0073DF7A /* maps_pin.png in Resources */,
 				BF54E9671FDD98C30073DF7A /* StoreListViewController.xib in Resources */,
@@ -273,6 +291,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BFCE65F11FDC768900F0EF5A /* MyStore.xcdatamodeld in Sources */,
+				BF8715501FDF2959004A1ECA /* EditStoreDelegate.swift in Sources */,
 				BFCE66151FDC7A9500F0EF5A /* FormCell.swift in Sources */,
 				BF54E9701FDDCCF80073DF7A /* TabbedViewController.swift in Sources */,
 				BFCE660E1FDC78C400F0EF5A /* PortraitNavigationController.swift in Sources */,
@@ -292,10 +311,20 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		BF87154C1FDF1346004A1ECA /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				BF87154B1FDF1346004A1ECA /* en */,
+				BF87154D1FDF1348004A1ECA /* fr */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
 		BFCE65F41FDC768900F0EF5A /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				BFCE65F51FDC768900F0EF5A /* Base */,
+				BF87153E1FDF0BEC004A1ECA /* fr */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -307,6 +336,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -364,6 +394,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
