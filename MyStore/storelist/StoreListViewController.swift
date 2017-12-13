@@ -34,8 +34,6 @@ public class StoreListViewController: UIViewController {
         
         self.storesListTableView.allowsSelection = true
         
-        
-        
         if let rawStores = CoreDataManager.fetchStores() {
             stores = [[String:Any]]()
             
@@ -88,13 +86,12 @@ UITableViewDataSource {
     
     public func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         
-        let delete = UITableViewRowAction (style: .destructive, title : self.localizeString("appstore.row.action.delete")){
+        let delete = UITableViewRowAction (style: .destructive, title : self.localizeString("app.vocabulary.row.action.delete")){
             (action, indexPath) in
             
-        
         }
         
-        let edit =  UITableViewRowAction (style: .normal, title : self.localizeString("appstore.row.action.edit")){
+        let edit =  UITableViewRowAction (style: .normal, title : self.localizeString("app.vocabulary.row.action.edit")){
             (action, indexPath) in
             
             print("Edit Button pressed at \t \(self.stores[indexPath.row]["name"] ?? " ")")

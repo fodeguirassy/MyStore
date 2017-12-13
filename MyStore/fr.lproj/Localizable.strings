@@ -6,11 +6,11 @@
   Copyright © 2017 Fodé Guirassy. All rights reserved.
 */
 
-"appstore.form.name"="Nom";
-"appstore.form.description"="Description";
-"appstore.form.address"="Adresse";
-"appstore.form.button"="Valider";
-"appstore.row.action.delete"="Supprimer";
-"appstore.row.action.edit"="Modifier";
+"app.vocabulary.form.name"="Nom";
+"app.vocabulary.form.description"="Description";
+"app.vocabulary.form.address"="Adresse";
+"app.vocabulary.form.button"="Valider";
+"app.vocabulary.row.action.delete"="Supprimer";
+"app.vocabulary.row.action.edit"="Modifier";
 
 

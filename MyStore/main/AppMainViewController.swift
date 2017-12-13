@@ -21,16 +21,6 @@ class AppMainViewController: UIViewController, EditStoreDelegate {
     
     @IBOutlet weak var childContentview: UIView!
     
-    
-    /*
-    lazy var gmsAutocompleteViewController: GMSAutocompleteViewController = {
-        let gmsAutocompleteViewController = GMSAutocompleteViewController()
-        gmsAutocompleteViewController.delegate = self
-        return gmsAutocompleteViewController
-    }()
-    */
-    
-
     lazy var storeListViewController : StoreListViewController = {
         let storeListViewController = StoreListViewController()
         storeListViewController.editStoreDelegate = self
@@ -54,15 +44,17 @@ class AppMainViewController: UIViewController, EditStoreDelegate {
     var autocompleteTableView: UITableView!
     var predictions = [[String : String]]()
     
+    var formCurrentStore = [String:Any]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.addChildViewController(self.mapViewController, in: childContentview)
         
-        self.storeNameTextField.placeholder = self.localizeString("appstore.form.name")
-        self.storeDescTextField.placeholder = self.localizeString("appstore.form.description")
-        self.storeAddressTextField.placeholder = self.localizeString("appstore.form.address")
-        self.sumitStoreButton.setTitle(self.localizeString("appstore.form.button"), for: UIControlState.normal)
+        self.storeNameTextField.placeholder = self.localizeString("app.vocabulary.form.name")
+        self.storeDescTextField.placeholder = self.localizeString("app.vocabulary.form.description")
+        self.storeAddressTextField.placeholder = self.localizeString("app.vocabulary.form.address")
+        self.sumitStoreButton.setTitle(self.localizeString("app.vocabulary.form.button"), for: UIControlState.normal)
         
         
         self.storeAddressTextField.delegate = self
@@ -106,6 +98,46 @@ class AppMainViewController: UIViewController, EditStoreDelegate {
  
     
     @IBAction func touchSubmitStore(_ sender: Any) {
+
+    
+        guard
+        let storeName = self.storeNameTextField.text,
+            storeName.count > 0 ,
+        let storeDescription = self.storeDescTextField.text,
+            storeDescription.count > 0,
+        let storeAddress = self.storeAddressTextField.text,
+        storeAddress.count > 0
+        else {
+            
+            return
+        }
+        
+        self.formCurrentStore["name"] = storeName
+        self.formCurrentStore["description"] = storeDescription
+        self.formCurrentStore["address"] = storeAddress
+ 
+        let placesClient = GMSPlacesClient()
+        
+        placesClient.lookUpPlaceID(self.formCurrentStore["placeId"] as! String, callback: {
+            (place,error) -> Void in
+            if let error = error {
+                
+                print("Error while geocoding address : \(error.localizedDescription)")
+                return
+            }
+            
+            guard let place = place else {
+                print("No place found")
+                return
+            }
+            
+            
+            print("\(place.name)")
+            print("\(place.coordinate.latitude)")
+            print("\(place.coordinate.longitude)")
+        
+            
+        })
         
     }
     
@@ -136,7 +168,7 @@ extension AppMainViewController: GMSAutocompleteFetcherDelegate {
         
         if !predictions.isEmpty {
             
-            print("\n \(predictions) \n")
+          //  print("\n \(predictions) \n")
             
             self.autocompleteTableView.isHidden = false
             if(!self.predictions.isEmpty) {
@@ -144,6 +176,9 @@ extension AppMainViewController: GMSAutocompleteFetcherDelegate {
             }
             
             predictions.forEach {
+                
+                print("\($0.placeID ?? "")")
+                
                 self.predictions.append(["fullAddress" : $0.attributedFullText.string, "placeId": "\($0.placeID ?? "")"])
                 self.autocompleteTableView.reloadData()
             }
@@ -180,7 +215,10 @@ extension AppMainViewController : UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        print("\(self.predictions[indexPath.row])")
+        self.storeAddressTextField.text = self.predictions[indexPath.row]["fullAddress"]
+        self.formCurrentStore["address"] = self.predictions[indexPath.row]["fullAddress"]
+        self.formCurrentStore["placeId"] = self.predictions[indexPath.row]["placeId"]
+        
         
     }
     

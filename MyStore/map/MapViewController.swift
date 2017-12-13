@@ -29,12 +29,6 @@ class MapViewController: UIViewController {
         
         self.locationManager.startUpdatingLocation()
         
-        
-        //let radius : CLLocationDistance = 200
-        //let region = MKCoordinateRegionMakeWithDistance((self.locationManager.location?.coordinate)!, radius *  2.0, radius * 2.0)
-        
-        //self.mapView.setRegion(region, animated: true)
-        
     }
 
     
@@ -44,6 +38,18 @@ class MapViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         guard let stores = CoreDataManager.fetchStores() else {
+            
+             let alert =  UIAlertController(title:
+             NSLocalizedString("app.vocabulary.error.title", comment: ""),
+             message : NSLocalizedString("app.vocabulary.error.error_message", comment: ""),
+             preferredStyle: .alert)
+             alert.addAction(UIAlertAction(title: NSLocalizedString("app.vocabulary.error.close", comment: ""), style: .cancel))
+             
+             self.present(alert, animated: true)
+ 
+            
+            
+            
             return
         }
         self.mapView.addAnnotations(stores.map{$0.annotion})

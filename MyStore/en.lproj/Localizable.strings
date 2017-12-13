@@ -6,9 +6,9 @@
   Copyright © 2017 Fodé Guirassy. All rights reserved.
 */
 
-"appstore.form.name"="Name";
-"appstore.form.description"="Description";
-"appstore.form.address"="Adress";
-"appstore.form.button"="Submit";
-"appstore.row.action.delete"="Delete";
-"appstore.row.action.edit"="Edit";
+"app.vocabulary.form.name"="Name";
+"app.vocabulary.form.description"="Description";
+"app.vocabulary.form.address"="Adress";
+"app.vocabulary.form.button"="Submit";
+"app.vocabulary.row.action.delete"="Delete";
+"app.vocabulary.row.action.edit"="Edit";
