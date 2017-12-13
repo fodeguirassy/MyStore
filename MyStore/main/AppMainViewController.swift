@@ -21,12 +21,14 @@ class AppMainViewController: UIViewController, EditStoreDelegate {
     
     @IBOutlet weak var childContentview: UIView!
     
+    
+    /*
     lazy var gmsAutocompleteViewController: GMSAutocompleteViewController = {
         let gmsAutocompleteViewController = GMSAutocompleteViewController()
         gmsAutocompleteViewController.delegate = self
         return gmsAutocompleteViewController
     }()
-    
+    */
     
 
     lazy var storeListViewController : StoreListViewController = {
@@ -42,12 +44,15 @@ class AppMainViewController: UIViewController, EditStoreDelegate {
     
     
     public var visibleViewController: UIViewController {
-        if self.mapViewController.view.window != nil
-        {
+        if self.mapViewController.view.window != nil{
             return self.mapViewController
         }
         return self.storeListViewController
     }
+    
+    var fetcher: GMSAutocompleteFetcher?
+    var autocompleteTableView: UITableView!
+    var predictions = [[String : String]]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -57,11 +62,30 @@ class AppMainViewController: UIViewController, EditStoreDelegate {
         self.storeNameTextField.placeholder = self.localizeString("appstore.form.name")
         self.storeDescTextField.placeholder = self.localizeString("appstore.form.description")
         self.storeAddressTextField.placeholder = self.localizeString("appstore.form.address")
-        
         self.sumitStoreButton.setTitle(self.localizeString("appstore.form.button"), for: UIControlState.normal)
         
-        self.storeAddressTextField.addTarget(self, action: #selector(searchForAddress), for: .allEditingEvents)
-    
+        
+        self.storeAddressTextField.delegate = self
+        self.storeNameTextField.delegate = self
+        self.storeDescTextField.delegate = self
+        
+        
+        self.storeAddressTextField.addTarget(self, action: #selector(searchForAddress), for: .editingChanged)
+        
+        fetcher = GMSAutocompleteFetcher(bounds: nil, filter: nil)
+        fetcher!.delegate = self
+        self.edgesForExtendedLayout = []
+        
+        self.autocompleteTableView = UITableView (frame: CGRect(self.storeAddressTextField.bounds.minX, self.sumitStoreButton.bounds.maxY,
+                                                           self.view.bounds.width, self.storeAddressTextField.bounds.height * 4))
+        self.autocompleteTableView.delegate = self
+        self.autocompleteTableView.dataSource = self
+        self.autocompleteTableView.isScrollEnabled = true
+        self.autocompleteTableView.isHidden = true
+        
+        self.autocompleteTableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        self.view.addSubview(self.autocompleteTableView)
+        
     }
     
     func onEditStoreClick(_ storesListViewController: StoreListViewController, didselectStore store: [String : Any]) {
@@ -71,14 +95,15 @@ class AppMainViewController: UIViewController, EditStoreDelegate {
         self.storeNameTextField.text = "\(store["name"] ?? "")"
         self.storeDescTextField.text = "\(store["description"] ?? "")"
         self.storeAddressTextField.text = "\(store["address"] ?? "")"
+        
 
     }
     
     @objc func searchForAddress() {
         
-       // self.present(gmsAutocompleteViewController, animated: true, completion: nil)
-        self.navigationController?.present(gmsAutocompleteViewController, animated: true, completion: nil)
+        fetcher?.sourceTextHasChanged(self.storeAddressTextField.text)
     }
+ 
     
     @IBAction func touchSubmitStore(_ sender: Any) {
         
@@ -105,28 +130,75 @@ class AppMainViewController: UIViewController, EditStoreDelegate {
     
 }
 
-extension AppMainViewController: GMSAutocompleteViewControllerDelegate {
+extension AppMainViewController: GMSAutocompleteFetcherDelegate {
     
-    func viewController(_ viewController: GMSAutocompleteViewController, didAutocompleteWith place: GMSPlace) {
-        print("place name\(place.formattedAddress ?? "")")
-        print("place attributions \(String(describing: place.attributions))")
-        dismiss(animated: true, completion: nil)
+    func didAutocomplete(with predictions: [GMSAutocompletePrediction]) {
+        
+        if !predictions.isEmpty {
+            
+            print("\n \(predictions) \n")
+            
+            self.autocompleteTableView.isHidden = false
+            if(!self.predictions.isEmpty) {
+                self.predictions.removeAll()
+            }
+            
+            predictions.forEach {
+                self.predictions.append(["fullAddress" : $0.attributedFullText.string, "placeId": "\($0.placeID ?? "")"])
+                self.autocompleteTableView.reloadData()
+            }
+        }
     }
     
-    func viewController(_ viewController: GMSAutocompleteViewController, didFailAutocompleteWithError error: Error) {
-        print("Error \(error.localizedDescription)")
-    }
-    
-    func wasCancelled(_ viewController: GMSAutocompleteViewController) {
-        print("Cancelled")
+    func didFailAutocompleteWithError(_ error: Error) {
+         print("\(error.localizedDescription)")
     }
 
-    
 }
 
+extension CGRect {
+    init(_ x:CGFloat, _ y:CGFloat, _ w:CGFloat, _ h:CGFloat) {
+        self.init(x:x, y:y, width:w, height:h)
+    }
+}
 
-
-
+extension AppMainViewController : UITableViewDelegate, UITableViewDataSource {
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return self.predictions.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as UITableViewCell
+        
+        cell.textLabel?.text =  self.predictions[indexPath.row]["fullAddress"]
+        cell.textLabel?.font = UIFont.systemFont(ofSize: 10.0)
+        return cell
+        
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        print("\(self.predictions[indexPath.row])")
+        
+    }
+    
+    
+}
+extension AppMainViewController: UITextFieldDelegate {
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        self.autocompleteTableView.isHidden = true
+    }
+    
+    
+}
 
 
 

@@ -1,4 +1,4 @@
-3//
+//
 //  AppDelegate.swift
 //  MyStore
 //
