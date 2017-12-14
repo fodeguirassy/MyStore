@@ -9,6 +9,7 @@
 import UIKit
 import MapKit
 import CoreLocation
+import GoogleMaps
 
 class MapViewController: UIViewController {
     
@@ -27,9 +28,14 @@ class MapViewController: UIViewController {
             manager.requestWhenInUseAuthorization()
             self.locationManager = manager
         }
+        
+        let camera = MKMapCamera(lookingAtCenter: self.mapView.userLocation.coordinate,
+                                 fromEyeCoordinate: self.mapView.userLocation.coordinate,
+                                 eyeAltitude: CLLocationDistance(100000))
+        self.mapView.setCamera(camera, animated: true)
+        
     }
 
-    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }

@@ -7,5 +7,6 @@ target 'MyStore' do
 
   # Pods for MyStore
   pod 'GooglePlaces'
+  pod 'GoogleMaps'
 
 end

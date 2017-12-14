@@ -100,8 +100,7 @@ class AppMainViewController: UIViewController, EditStoreDelegate {
     
     
     @IBAction func touchSubmitStore(_ sender: Any) {
-        
-        
+    
         guard
             let storeName = self.storeNameTextField.text,
             storeName.count > 0 ,
@@ -157,6 +156,10 @@ class AppMainViewController: UIViewController, EditStoreDelegate {
             
             self.onSumbitStoreDelegate?.onStoreAdded()
             
+            self.storeDescTextField.text = ""
+            self.storeNameTextField.text = ""
+            self.storeAddressTextField.text = ""
+
         })
         
     }
