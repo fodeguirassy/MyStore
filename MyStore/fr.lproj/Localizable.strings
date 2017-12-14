@@ -12,5 +12,19 @@
 "app.vocabulary.form.button"="Valider";
 "app.vocabulary.row.action.delete"="Supprimer";
 "app.vocabulary.row.action.edit"="Modifier";
-
-
+"app.vocabulary.database.failed.title"="Erreurr";
+"app.vocabulary.database.failed.action"="Fermer";
+"app.vocabulary.database.fetch.failed.message"="La requête des store en BDD a échoué";
+"app.vocabulary.database.fetch.failed"= "La requête des stores en Base de données a produit une erreur";
+"app.vocabulary.database.empty.title"="Base de données vide";
+"app.vocabulary.database.empty.action"="Fermer";
+"app.vocabulary.database.empty.message"="Aucun store trouvé en Base de données";
+"app.vocabulary.form.error.title"="Erreur";
+"app.vocabulary.form.error.action"="Fermer";
+"app.vocabulary.form.error.message"="Les données saisies sont erronées";
+"app.vocabulary.geocode.failed.title"="Erreur";
+"app.vocabulary.geocode.failed.action"="Fermer";
+"app.vocabulary.geocode.failed.message"="La requête des coordonées a échoué";
+"app.vocabulary.geocode.empty.title"="Erreurr";
+"app.vocabulary.geocode.empty.action"="Fermer";
+"app.vocabulary.geocode.empty.message"="Impossible de trouver l'adresse choisie";

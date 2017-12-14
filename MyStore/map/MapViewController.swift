@@ -16,6 +16,7 @@ class MapViewController: UIViewController {
     @IBOutlet weak var mapView: MKMapView!
     var locationManager: CLLocationManager!
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.mapView.delegate = self
@@ -26,9 +27,6 @@ class MapViewController: UIViewController {
             manager.requestWhenInUseAuthorization()
             self.locationManager = manager
         }
-        
-        self.locationManager.startUpdatingLocation()
-        
     }
 
     
@@ -36,23 +34,39 @@ class MapViewController: UIViewController {
         super.didReceiveMemoryWarning()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
+    
+    func loadStoresOnMap() {
+        if !self.mapView.annotations.isEmpty {
+            self.mapView.removeAnnotations(self.mapView.annotations)
+        }
         guard let stores = CoreDataManager.fetchStores() else {
             
-             let alert =  UIAlertController(title:
-             NSLocalizedString("app.vocabulary.error.title", comment: ""),
-             message : NSLocalizedString("app.vocabulary.error.error_message", comment: ""),
-             preferredStyle: .alert)
-             alert.addAction(UIAlertAction(title: NSLocalizedString("app.vocabulary.error.close", comment: ""), style: .cancel))
-             
-             self.present(alert, animated: true)
- 
-            
-            
+            let alert =  UIAlertController(title:
+                NSLocalizedString("app.vocabulary.database.failed.title", comment: ""),
+                                           message : NSLocalizedString("app.vocabulary.database.fetch.failed.message", comment: ""),
+                                           preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: NSLocalizedString("app.vocabulary.database.failed.action", comment: ""), style: .cancel))
+            self.present(alert, animated: true)
             
             return
         }
+        
+        if stores.isEmpty {
+            let alert =  UIAlertController(title:
+                NSLocalizedString("app.vocabulary.database.empty.title", comment: ""),
+                                           message : NSLocalizedString("app.vocabulary.database.empty.message", comment: ""),
+                                           preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: NSLocalizedString("app.vocabulary.database.empty.action", comment: ""), style: .cancel))
+            self.present(alert, animated: true)
+        }
+        
         self.mapView.addAnnotations(stores.map{$0.annotion})
+    }
+    
+    
+    
+    override func viewWillAppear(_ animated: Bool) {
+       self.loadStoresOnMap()
     }
     
 
@@ -79,4 +93,11 @@ extension MapViewController: MKMapViewDelegate {
         
     }
     
+}
+
+extension MapViewController: DidAddStoreDelegate {
+    
+    func onStoreAdded() {
+        self.loadStoresOnMap()
+    }
 }

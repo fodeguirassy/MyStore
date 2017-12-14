@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		772A9461EB590ED5A58159A5 /* Pods_MyStore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D116536A074B9A47508C059E /* Pods_MyStore.framework */; };
+		BF3B4AE91FE1C7C000484736 /* DidAddStoreDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF3B4AE81FE1C7C000484736 /* DidAddStoreDelegate.swift */; };
 		BF54E95B1FDC84770073DF7A /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF54E95A1FDC84770073DF7A /* Store.swift */; };
 		BF54E95E1FDC88A40073DF7A /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF54E95D1FDC88A40073DF7A /* CoreDataManager.swift */; };
 		BF54E9661FDD98C30073DF7A /* StoreListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF54E9641FDD98C30073DF7A /* StoreListViewController.swift */; };
@@ -38,6 +39,7 @@
 
 /* Begin PBXFileReference section */
 		2F63DBDC26DDED9DFB3E543D /* Pods-MyStore.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyStore.release.xcconfig"; path = "Pods/Target Support Files/Pods-MyStore/Pods-MyStore.release.xcconfig"; sourceTree = "<group>"; };
+		BF3B4AE81FE1C7C000484736 /* DidAddStoreDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DidAddStoreDelegate.swift; sourceTree = "<group>"; };
 		BF54E95A1FDC84770073DF7A /* Store.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
 		BF54E95D1FDC88A40073DF7A /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		BF54E9641FDD98C30073DF7A /* StoreListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreListViewController.swift; sourceTree = "<group>"; };
@@ -141,6 +143,7 @@
 			isa = PBXGroup;
 			children = (
 				BF87154F1FDF2959004A1ECA /* EditStoreDelegate.swift */,
+				BF3B4AE81FE1C7C000484736 /* DidAddStoreDelegate.swift */,
 			);
 			path = protocol;
 			sourceTree = "<group>";
@@ -377,6 +380,7 @@
 				BF54E9701FDDCCF80073DF7A /* TabbedViewController.swift in Sources */,
 				BFCE660E1FDC78C400F0EF5A /* PortraitNavigationController.swift in Sources */,
 				BF54E95B1FDC84770073DF7A /* Store.swift in Sources */,
+				BF3B4AE91FE1C7C000484736 /* DidAddStoreDelegate.swift in Sources */,
 				BFCE65E91FDC768900F0EF5A /* AppDelegate.swift in Sources */,
 				BFCE66031FDC789000F0EF5A /* MainViewController.swift in Sources */,
 				BF54E97B1FDE7FE20073DF7A /* AppMainViewController.swift in Sources */,

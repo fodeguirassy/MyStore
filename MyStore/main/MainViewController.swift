@@ -13,8 +13,6 @@ class MainViewController: UIViewController {
     
     @IBOutlet weak var mainTableView: UITableView!
     var context:  NSManagedObjectContext!
-
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()

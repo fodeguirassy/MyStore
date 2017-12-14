@@ -10,7 +10,7 @@ import UIKit
 import GooglePlaces
 
 class AppMainViewController: UIViewController, EditStoreDelegate {
-   
+    
     @IBOutlet weak var storeNameTextField: UITextField!
     
     @IBOutlet weak var storeDescTextField: UITextField!
@@ -24,11 +24,12 @@ class AppMainViewController: UIViewController, EditStoreDelegate {
     lazy var storeListViewController : StoreListViewController = {
         let storeListViewController = StoreListViewController()
         storeListViewController.editStoreDelegate = self
-       return storeListViewController
+        return storeListViewController
     }()
     
     lazy var mapViewController : MapViewController = {
         let mapViewController = MapViewController()
+        self.onSumbitStoreDelegate = mapViewController
         return mapViewController
     }()
     
@@ -45,6 +46,8 @@ class AppMainViewController: UIViewController, EditStoreDelegate {
     var predictions = [[String : String]]()
     
     var formCurrentStore = [String:Any]()
+    
+    weak var onSumbitStoreDelegate : DidAddStoreDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -69,7 +72,7 @@ class AppMainViewController: UIViewController, EditStoreDelegate {
         self.edgesForExtendedLayout = []
         
         self.autocompleteTableView = UITableView (frame: CGRect(self.storeAddressTextField.bounds.minX, self.sumitStoreButton.bounds.maxY,
-                                                           self.view.bounds.width, self.storeAddressTextField.bounds.height * 4))
+                                                                self.view.bounds.width, self.storeAddressTextField.bounds.height * 4))
         self.autocompleteTableView.delegate = self
         self.autocompleteTableView.dataSource = self
         self.autocompleteTableView.isScrollEnabled = true
@@ -88,54 +91,71 @@ class AppMainViewController: UIViewController, EditStoreDelegate {
         self.storeDescTextField.text = "\(store["description"] ?? "")"
         self.storeAddressTextField.text = "\(store["address"] ?? "")"
         
-
+        
     }
     
     @objc func searchForAddress() {
-        
         fetcher?.sourceTextHasChanged(self.storeAddressTextField.text)
     }
- 
+    
     
     @IBAction func touchSubmitStore(_ sender: Any) {
-
-    
-        guard
-        let storeName = self.storeNameTextField.text,
-            storeName.count > 0 ,
-        let storeDescription = self.storeDescTextField.text,
-            storeDescription.count > 0,
-        let storeAddress = self.storeAddressTextField.text,
-        storeAddress.count > 0
-        else {
-            
-            return
-        }
         
-        self.formCurrentStore["name"] = storeName
-        self.formCurrentStore["description"] = storeDescription
-        self.formCurrentStore["address"] = storeAddress
- 
+        
+        guard
+            let storeName = self.storeNameTextField.text,
+            storeName.count > 0 ,
+            let storeDescription = self.storeDescTextField.text,
+            storeDescription.count > 0,
+            let storeAddress = self.storeAddressTextField.text,
+            storeAddress.count > 0
+            else {
+                
+                let alert =  UIAlertController(title:
+                    NSLocalizedString("app.vocabulary.form.error.title", comment: ""),
+                                               message : NSLocalizedString("app.vocabulary.form.error.message", comment: ""),
+                                               preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: NSLocalizedString("app.vocabulary.form.error.action", comment: ""), style: .cancel))
+                self.present(alert, animated: true)
+                
+                return
+        }
+
+        
         let placesClient = GMSPlacesClient()
         
         placesClient.lookUpPlaceID(self.formCurrentStore["placeId"] as! String, callback: {
             (place,error) -> Void in
-            if let error = error {
-                
-                print("Error while geocoding address : \(error.localizedDescription)")
+            if error != nil {
+                let alert =  UIAlertController(title:
+                    NSLocalizedString("app.vocabulary.form.error.title", comment: ""),
+                                               message : NSLocalizedString("app.vocabulary.form.error.message", comment: ""),
+                                               preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: NSLocalizedString("app.vocabulary.form.error.action", comment: ""), style: .cancel))
+                self.present(alert, animated: true)
                 return
             }
             
             guard let place = place else {
-                print("No place found")
+                let alert =  UIAlertController(title:
+                    NSLocalizedString("app.vocabulary.geocode.empty.title", comment: ""),
+                                               message : NSLocalizedString("app.vocabulary.geocode.empty.message", comment: ""),
+                                               preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: NSLocalizedString("app.vocabulary.geocode.empty.action", comment: ""), style: .cancel))
+                self.present(alert, animated: true)
+                
                 return
             }
             
-            
-            print("\(place.name)")
-            print("\(place.coordinate.latitude)")
-            print("\(place.coordinate.longitude)")
+            self.formCurrentStore["name"] = storeName
+            self.formCurrentStore["description"] = storeDescription
+            self.formCurrentStore["longitude"] = place.coordinate.longitude
+            self.formCurrentStore["latitude"] = place.coordinate.latitude
         
+            
+            CoreDataManager.insertStore(self.formCurrentStore)
+            
+            self.onSumbitStoreDelegate?.onStoreAdded()
             
         })
         
@@ -155,7 +175,7 @@ class AppMainViewController: UIViewController, EditStoreDelegate {
     fileprivate func localizeString(_ key: String) -> String {
         return NSLocalizedString(key, comment: "")
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
@@ -167,8 +187,6 @@ extension AppMainViewController: GMSAutocompleteFetcherDelegate {
     func didAutocomplete(with predictions: [GMSAutocompletePrediction]) {
         
         if !predictions.isEmpty {
-            
-          //  print("\n \(predictions) \n")
             
             self.autocompleteTableView.isHidden = false
             if(!self.predictions.isEmpty) {
@@ -186,9 +204,9 @@ extension AppMainViewController: GMSAutocompleteFetcherDelegate {
     }
     
     func didFailAutocompleteWithError(_ error: Error) {
-         print("\(error.localizedDescription)")
+        print("\(error.localizedDescription)")
     }
-
+    
 }
 
 extension CGRect {
@@ -219,6 +237,7 @@ extension AppMainViewController : UITableViewDelegate, UITableViewDataSource {
         self.formCurrentStore["address"] = self.predictions[indexPath.row]["fullAddress"]
         self.formCurrentStore["placeId"] = self.predictions[indexPath.row]["placeId"]
         
+        self.autocompleteTableView.isHidden = true
         
     }
     
@@ -238,7 +257,14 @@ extension AppMainViewController: UITextFieldDelegate {
     
 }
 
-
+extension UIAlertController {
+    open override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        return UIInterfaceOrientationMask.portrait
+    }
+    open override var shouldAutorotate: Bool {
+        return false
+    }
+}
 
 
 

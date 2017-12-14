@@ -13,16 +13,16 @@ class CoreDataManager {
     
     static var context: NSManagedObjectContext!
     
+    class func insertStore(_ aStore:[String:Any]) {
     
-    class func insertStore() {
         let store = Store(context: self.context)
-        
-        store.address = "6 rue de l'ancienne militaire, 91120, Palaiseau"
-        store.longitude = 2.247620
-        store.latitude = 48.724894
-        store.name = "Apple Store La Défense"
-        store.storeDesc = "The third best App Store in Paris"
-        
+    
+        store.address = "\(aStore["address"] ?? "")"
+        store.longitude = Double("\(aStore["longitude"] ?? "")")!
+        store.latitude = Double("\(aStore["latitude"] ?? "")")!
+        store.name = "\(aStore["name"] ?? "")"
+        store.storeDesc = "\(aStore["description"] ?? "")"
+    
         try? self.context.save()
     
     }
